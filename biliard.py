@@ -11,26 +11,29 @@ FPS=60
 
 class Ball:
 	def __init__(self,x,y,vx,vy):
-		self.pos = [float(x),float(y)]
-		self.x_velocity = float(vx)
-		self.y_velocity = float(vy)
+		if type(x) != float or type(y) != float or \
+		   type(vx) != float or type(vy) != float:
+			raise TypeError
+		self.pos = [x, y]
+		self.x_velocity = vx
+		self.y_velocity = vy
 	def next_iter(self):
-		print self.pos
+		#print self.pos
 		(a,b) = self.pos
 		(a,b) = (a+self.x_velocity, b+self.y_velocity)
 		self.pos = [a,b]
 
 class Simulation:
 	def __init__(self):
-		self.balls = []
-	def add_ball(self, x, y, vx, vy):
-		self.balls.append(Ball(x,y,vx/FPS,vy/FPS))
+		self.balls = {}
+	def add_ball(self, label, x, y, vx, vy):
+		self.balls.update({label: Ball(x,y,vx/FPS,vy/FPS)})
 	def next_iter(self):
 		self.detect_collisions()
-		for b in self.balls:
+		for b in self.balls.itervalues():
 			b.next_iter()
 	def detect_collisions_with_walls(self):
-		for ball in self.balls:
+		for ball in self.balls.itervalues():
 			(x, y) = ball.pos
 			if not (0 < x < 2):
 				x *= -1
@@ -40,6 +43,8 @@ class Simulation:
 		self.detect_collisions_with_walls()
 	def get_balls(self):
 		return [b.pos for b in self.balls]
+	def step(self, nr):
+		[self.next_iter() for i in range(nr)]
  
 black    = (   0,   0,   0)
 white    = ( 255, 255, 255)
@@ -58,8 +63,8 @@ if __name__ == '__main__':
 
 	clock=pygame.time.Clock()
 	sim = Simulation()
-	sim.add_ball(0.0,0.0,0.5,0.0)
-	sim.add_ball(0.0,0.0,0.0,0.0)
+	sim.add_ball(0, 0.0,0.0,0.5,0.0)
+	sim.add_ball(1, 0.0,0.0,0.0,0.0)
 	screen.fill(green)
 	pygame.display.update()
 	while done==False:
