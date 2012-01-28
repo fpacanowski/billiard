@@ -1,0 +1,8 @@
+== WSTEP ==
+To jest symulator bilarda dla dwoch graczy z bardzo uproszczonymi zasadami. Wbicie kolorowej bili do dowolnej luzy jest warte 1 punkt. Wbicie bialej bili to utrata punktu.
+
+== OBSLUGA ==
+- strzalki lewo/prawo: ustawienie kata uderzenia
+- strzalki gora/dol: ustawienie sily uderzenia
+- spacja: uderzenie
+- escape: wyjscie

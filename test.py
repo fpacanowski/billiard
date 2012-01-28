@@ -1,9 +1,9 @@
 import unittest
-import biliard
+import billiard
 
 class TestSimulation(unittest.TestCase):
 	def setUp(self):
-		self.sim = biliard.Simulation()
+		self.sim = billiard.Simulation()
 		self.FPS = 100
 	def test_adding_ball(self):
 		self.sim.add_ball("ball", 0.0,0.0,0.0,0.0)
