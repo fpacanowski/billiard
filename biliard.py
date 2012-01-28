@@ -176,38 +176,30 @@ class Interface(threading.Thread):
 			self.draw_arrow(self.angle, self.scale_position(pos), self.power)
 
 	def draw_arrow(self, angle, pos, length):
-		#pos = [pos[0], pos[1]-int(25*length)]
-#		arrow = pygame.Surface((50,100))
-#		arrow.fill((255,255,255))
-#		pygame.draw.line(arrow, (0,0,0), (25,100), (25,0))
-#		pygame.draw.line(arrow, (0,0,0), (25,0), (20,25))
-#		pygame.draw.line(arrow, (0,0,0), (25,0), (30,25))
-#		arrow.set_colorkey((255,255,255))
-#		arrow = pygame.transform.scale(arrow, (50,int(50*length)))
-#		nar = pygame.transform.rotate(arrow,angle)
-#		nrect = nar.get_rect(center=pos)
-#		pos = [pos[0]-nar.get_height(), pos[1]-nar.get_height()]
-#		self.screen.blit(nar, pos)
 		angle = (angle/180.0)*math.pi
-		#print v*math.sin(angle), v*math.cos(angle)
 		(dx, dy) = (-100*length*math.sin(angle), -100*length*math.cos(angle))
 		pygame.draw.aaline(self.screen, red, pos, [pos[0]+dx,pos[1]+dy])
+
 	def draw_scores(self):
 		# Create a font
 		font = pygame.font.Font(None, 50)
 
 		# Render the text
-		text = font.render('Player 1: %d'%self.scores[0], True, (255,255, 255), (159, 182, 205))
+		s1 = font.render('Player 1: %d'%self.scores[0], True, (255,255, 255), (159, 182, 205))
+		s2 = font.render('Player 2: %d'%self.scores[1], True, (255,255, 255), (159, 182, 205))
 
 		# Create a rectangle
-		textRect = text.get_rect()
+		s1rect = text.get_rect()
+		s2rect = text.get_rect()
 
 		# Center the rectangle
-		textRect.centerx = 150
-		textRect.centery = 50
+		s1rect.centerx = 150
+		s2rect.centerx = 450
+		s1rect.centery = s2rect.centery = 50
 
 		# Blit the text
-		self.screen.blit(text, textRect)
+		self.screen.blit(s1, s1rect)
+		self.screen.blit(s2, s2rect)
 	
 
 	def run(self):
